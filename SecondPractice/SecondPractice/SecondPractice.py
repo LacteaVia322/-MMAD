@@ -2,9 +2,9 @@
 # 2е задание
 import random
 import numpy as np
-def sortingStrings(a):
+def sortString(a):
     return sorted(list(a))
-b=sortingStrings('this string needs to be sorted')
+b=sortString('this string needs to be sorted')
 print("".join(b))
 
 # 4е задание
