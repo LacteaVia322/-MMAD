@@ -19,6 +19,7 @@ print(x)
 def secondRandomArrays(arraySize):
     arr = np.random.sample(arraySize)
     return return min(arr), max(arr)
+
 maxValue, minValue = secondRandomArrays(50)
 print(maxValue, minValue)
 
