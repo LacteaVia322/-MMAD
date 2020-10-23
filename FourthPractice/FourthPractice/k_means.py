@@ -6,7 +6,7 @@ def dist(A, B, N):
   temp = 0
   
   for i in range(N):
-      temp = ((A[i] - B[i]) * (A[i] - B[i])) + temp
+       temp += ((A[i] - B[i]) * (A[i] - B[i]))
 
   r = np.sqrt(temp)
   
