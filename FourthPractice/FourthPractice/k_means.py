@@ -60,7 +60,7 @@ def kmeans(k, X):
   while True:
      centers = curse(k, X)
      
-     if check(X, centers) == True:
+     if check(X, centers):
          break;
          
   return centers
