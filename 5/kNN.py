@@ -6,26 +6,18 @@ def k_nearest(X, k, obj):
     
 #нормализация каждого столбца
  sub_X=X[:,0:-1]
- n=len(sub_X[1,:])
- m=len(sub_X[:,1])
- distances=np.zeros(m)
+ n=sub_X.shape[1]
+ m=sub_X.shape[0]
  
  #рассчет евклидово расстояния от obj до каждого объекта sub_X
- for i in range(m):
-    distances[i]=dist(obj,sub_X[i])
+ distances= [dist(obj,item) for item in sub_X]
+
  #Получаем индексы соседей по мере их удаления от obj.
  index_dist=np.argsort(distances,axis=0)
- index_dist=np.argsort(index_dist,axis=0)
-
- min_1=list(index_dist).index(0)
  
  #выбор в отдельный вектор классы k ближайших соседей
- vektor=np.zeros(k)
- nearest_classes=np.zeros((k,2))
- for i in range(k):
-   vektor[i]=list(index_dist).index(i)
- for i in range(k):
-    nearest_classes[i]=X[int(vektor[i]),2]
+ nearest_classes=[X[index_dist[item],2] for item in range(k)]
+    
  # определяем наиболее часто встречающийся класс в этом векторе
  unique, counts = np.unique(nearest_classes, return_counts=True)
  object_class = unique[np.argmax(counts)]
