@@ -25,10 +25,11 @@ displayData(x)
 pre = predict(x_ts, th1, th2)
 #сравниваем результаты предсказания сети с реальными значениями
 y_ts.ravel()
-
 q = (pre == y_ts.ravel())
+#вывод результата массива сравнения
 print(q)
 res = np.mean(np.double(q))
+#выводим значение точности
 print(res)
 #выполнить предсказание для 5 случайных примеров из обучающей выборки
 rp = np.random.permutation(m)
