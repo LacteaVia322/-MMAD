@@ -6,8 +6,7 @@ import numpy as np
 URL = 'https://auto.ru/cars/ferrari/all/'
 
 def get_html(url, params=None):
-    r = requests.get('https://auto.ru/cars/ferrari/all/')
-    return r
+    return requests.get('https://auto.ru/cars/ferrari/all/')
 
 def get_content(html):
     soup = BeautifulSoup(html, 'html.parser')
@@ -30,13 +29,9 @@ def get_content(html):
     print('Максимальная цена автомобиля марки "Ferrari" ' + str(np.max(prices))  + '\n')
     return cars
 
-def parse():
-    html = get_html(URL)
-    if html.status_code == 200:
-        cars = get_content(html.text)
-    else:
-        print('Error')
-        
-parse()
 
-
+html = get_html(URL)
+if html.status_code == 200:
+    cars = get_content(html.text)
+else:
+    print('Error')
