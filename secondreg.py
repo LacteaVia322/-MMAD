@@ -12,12 +12,13 @@ def normalize(arr):
     arr = arr / std
     
     return arr
-
+# инициализация данных
 data = np.matrix(np.loadtxt('ex1data2.txt', delimiter=','))
 square = data[:, 0]
 room = data[:, 1]
 price = data[:, 2]
 
+# нормализация данных
 square = normalize(square)
 room = normalize(room)
 price = normalize(price)
@@ -27,9 +28,11 @@ X_ones = np.c_[np.ones((X.shape[0], 1)), X]
 y = price
 theta = np.matrix('[1; 2; 3]')
 
+# вычисление стоимости
 primary_cost = compute_cost(X_ones, y, theta)
 print('initial cost -> ' + str( primary_cost ))
 
+# градиентный спуск
 theta, J_th = gradient_descent(X_ones, y, 0.000000002, 1000)
 plt.plot(np.arange(1000), J_th, 'k-')
 plt.title('Снижение ошибки при градиентном спуске')
@@ -38,9 +41,11 @@ plt.ylabel('Ошибка')
 plt.grid()
 plt.show()
 
+# веса
 print('weights:')
 print(theta)
 
+# вычисление новой стоимости
 new_cost = compute_cost(X_ones, y, theta)
 print('new cost -> ' + str( new_cost ))
 
