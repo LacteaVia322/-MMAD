@@ -2,6 +2,7 @@ import scipy.io as s_i
 import numpy as np
 from displayData import displayData
 from predict import predict
+import DigitPredictor as dg
 import matplotlib.pyplot as plt
 
 #получаем матрицу и вектор-столбец
@@ -9,8 +10,12 @@ test_set = s_i.loadmat('test_set.mat')
 weights = s_i.loadmat('weights.mat')
 x_ts = test_set['X']
 y_ts = np.int64(test_set['y'])
+y_ts.ravel()
 th1 = weights['Theta1']
 th2 = weights['Theta2']
+
+#----Доп задание----
+dg.show(x_ts)
 
 #получаем число строк в матрице
 m = x_ts.shape[0]
@@ -18,17 +23,17 @@ m = x_ts.shape[0]
 indexrow = np.random.permutation(m)
 x = np.zeros((100, x_ts.shape[1]))
 for i in range(100):
-    x[i] = x_ts[indexrow[i]]
-    
+    x[i]=np.random.choice(x_ts[i])
 displayData(x)
 #получаем результат предсказания нейросети
-pre = predict(x_ts, th1, th2)
-#сравниваем результаты предсказания сети с реальными значениями
-y_ts.ravel()
-q = (pre == y_ts.ravel())
-#вывод результата массива сравнения
-print(q)
-res = np.mean(np.double(q))
+predicted = predict(x_ts, th1, th2)
+
+#----Доп задание----
+pr=dg.predict(x_ts)
+res1 = np.mean(np.double(pr == y_ts.ravel()))
+print(res1)
+
+res = np.mean(np.double(predicted == y_ts.ravel()))
 #выводим значение точности
 print(res)
 #выполнить предсказание для 5 случайных примеров из обучающей выборки
@@ -45,8 +50,8 @@ for i in range(5):
      
      plt.close()
 #определяем индексы примеров, на которых нейросеть ошиблась     
-mistake = np.where(pre != y_ts.ravel())[0]
-qwerty = np.zeros((100,x_ts.shape[1]))
+mistake = np.where(predicted != y_ts.ravel())[0]
+array_mistake = np.zeros((100,x_ts.shape[1]))
 for i in range(100):
-    qwerty[i] = x_ts[mistake[i]]
-displayData(qwerty)
+    array_mistake[i] = x_ts[mistake[i]]
+displayData(array_mistake)
