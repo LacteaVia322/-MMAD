@@ -2,9 +2,24 @@ import scipy.io as s_i
 import numpy as np
 from displayData import displayData
 from predict import predict
-import DigitPredictor as dg
 import matplotlib.pyplot as plt
 
+#---Доп задание---
+class DigitPredictor:
+    #метод предсказание для строки матрицы
+    def predict(self, x):
+        x= x.reshape((1, x.shape[0]))
+        res=predict(x, self.Theta1,  self.Theta2)
+        return res            
+    #конструктор объкта класса, аргументы которого веса 
+    def __init__(self, t1, t2):
+        self.Theta1 = t1
+        self.Theta2 = t2
+    #метод для вывода изображения
+    def show(self,x):
+        x= x.reshape((1, x.shape[0]))
+        displayData(x)  
+        
 #получаем матрицу и вектор-столбец
 test_set = s_i.loadmat('test_set.mat')
 weights = s_i.loadmat('weights.mat')
@@ -15,7 +30,10 @@ th1 = weights['Theta1']
 th2 = weights['Theta2']
 
 #----Доп задание----
-dg.show(x_ts)
+#создание объекта класса, аргументы это веса
+dg = DigitPredictor(th1,th2)
+#вызов метода для вывода изображения строки матрицы
+dg.show(x_ts[150])
 
 #получаем число строк в матрице
 m = x_ts.shape[0]
@@ -29,7 +47,8 @@ displayData(x)
 predicted = predict(x_ts, th1, th2)
 
 #----Доп задание----
-pr=dg.predict(x_ts)
+#вызов метода для предсказания строки матрицы
+pr=dg.predict(x_ts[0])
 res1 = np.mean(np.double(pr == y_ts.ravel()))
 print(res1)
 
@@ -55,3 +74,5 @@ array_mistake = np.zeros((100,x_ts.shape[1]))
 for i in range(100):
     array_mistake[i] = x_ts[mistake[i]]
 displayData(array_mistake)
+
+
